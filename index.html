@@ -11,7 +11,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
 </head>
 <body>
-<div style="width:100%; height: 100vh">
+<div id="main" style="width:100%; height: 100vh; position: relative">
     <div class="container" style="margin: 16px">
         <form>
             <div class="form-group">
@@ -36,7 +36,7 @@
     <iframe id="widget"
             src='https://widget.1nft.store/?overview=true&collections=bb93f18f-94d7-443f-a2b6-2f4006dd39bc,e3ad24b6-a50f-4d46-bdce-b28a99a40d38,8d5dd4e0-1c63-43ad-842a-f0d04227879d&blockchains=BNBCHAINTESTNET,BNBCHAIN,POLYGON&search_s=true&blockchain_s=true&theme_s=true '
             frameborder='0' width="100%" height="100%"></iframe>
-    <script src="https://widget.1nft.store/wscript.js"></script>
+<!--    <script src="https://widget.1nft.store/wscript.js"></script>-->
 </div>
 <script>
 
@@ -116,6 +116,76 @@
                 iframe.setAttribute('src', path)
             })
         })
+
+    }
+</script>
+<script>
+    let manageWindow;
+    const widget = document.getElementById("widget");
+    const url = widget?.getAttribute("src")?.split("?");
+
+    const eventHandler = (e) => {
+
+        if (e.data === "goToManage") {
+            addElement()
+        }
+        if (e.data === "closeManage" && manageWindow) {
+            manageWindow.close();
+        }
+    };
+
+    window.addEventListener("message", async (ev) => {
+        if (ev.data && ev.data.data && ev.data.data.data && ev.data.data.data.method === 'metamask_accountsChanged') {
+            widget.contentWindow.postMessage({data: ev.data.data.data, parentUrl: window.location.href}, url[0])
+        }
+        if (ev.data) {
+            eventHandler(ev)
+        }
+    })
+
+    function addElement() {
+        // create a new div element
+        const externalDiv = document.createElement("div");
+        const internalDiv = document.createElement("div");
+        const button = document.createElement("button");
+        button.addEventListener('click', () => {
+            manageWindow = window.open(`${url[0]}` + `manage?` + `${url[1]}`, "_blank");
+            externalDiv.remove()
+        })
+        externalDiv.style.position = 'absolute'
+        externalDiv.style.top = '0'
+        externalDiv.style.bottom = '0'
+        externalDiv.style.left = '0'
+        externalDiv.style.right = '0'
+        externalDiv.style.textAlign = 'center'
+        // and give it some content
+
+        internalDiv.style.width = '400px'
+        internalDiv.style.height = '200px'
+        internalDiv.style.position = 'absolute'
+        internalDiv.style.top = '50%'
+        internalDiv.style.left = '50%'
+        internalDiv.style.transform = 'translate(-50%, -50%)'
+        internalDiv.style.zIndex = '99'
+        internalDiv.style.background = '#1a1a1a'
+        internalDiv.style.borderRadius = '8px'
+        internalDiv.style.color = 'white'
+
+        button.style.margin = '80px'
+        button.style.padding = '10px 20px'
+        button.style.borderRadius = '1000px'
+
+        const content = document.createTextNode("Connect");
+
+        // add the text node to the newly created div
+        button.appendChild(content);
+        internalDiv.appendChild(button);
+        // externalDiv.appendChild(content);
+
+        // add the newly created element and its content into the DOM
+        externalDiv.appendChild(internalDiv)
+        const currentDiv = document.getElementById("main");
+        document.body.insertBefore(externalDiv, currentDiv);
 
     }
 </script>
