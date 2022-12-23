@@ -34,7 +34,7 @@
 <!--    <button class="btn btn-primary" onclick="goToItem('0xC21d76B7B5633Da34Dda99a2126B4d9522D0D021', '1502', '0x38d41672f10cde9465358ddd5177741cd6e87ca4')">Click Item</button>-->
 <!--    <button class="btn btn-secondary" onclick="goToLot('0x58863026672bfE7Dfa491385C5A2916beA4ce3a2', '1488', '0x38d41672f10cde9465358ddd5177741cd6e87ca4')">Click Lot</button>-->
     <iframe id="widget"
-            src='https://widget.octogamex.com/?overview=true&collections=bb93f18f-94d7-443f-a2b6-2f4006dd39bc,e3ad24b6-a50f-4d46-bdce-b28a99a40d38,8d5dd4e0-1c63-43ad-842a-f0d04227879d&blockchains=BNBCHAINTESTNET,BNBCHAIN,POLYGON&search_s=true&blockchain_s=true&theme_s=true '
+            src='https://widget.1nft.store/?overview=true&collections=bb93f18f-94d7-443f-a2b6-2f4006dd39bc,e3ad24b6-a50f-4d46-bdce-b28a99a40d38,8d5dd4e0-1c63-43ad-842a-f0d04227879d&blockchains=BNBCHAINTESTNET,BNBCHAIN,POLYGON&search_s=true&blockchain_s=true&theme_s=true '
             frameborder='0' width="100%" height="100%"></iframe>
     <script src="https://widget.1nft.store/wscript.js"></script>
 </div>
@@ -68,7 +68,7 @@
         iframe.setAttribute('src', defaultSrc)
         let src = iframe.getAttribute("src").split("?");
 
-        fetch('https://api.octogamex.com/widgetUser/item/uuid', {
+        fetch('https://widget.1nft.store/widgetUser/item/uuid', {
             method: 'GET',
             mode: 'cors',
             cache: 'no-cache',
@@ -96,7 +96,7 @@
         let src = iframe.getAttribute("src").split("?");
         console.log(src)
 
-        fetch('https://api.octogamex.com/widgetUser/lot/uuid', {
+        fetch('https://widget.1nft.store/widgetUser/lot/uuid', {
             method: 'GET',
             mode: 'cors',
             cache: 'no-cache',
