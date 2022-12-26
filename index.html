@@ -79,7 +79,7 @@
                 let src = defaultSrc.split("?");
 
                 const collectionName = data.collectionName.replaceAll(' ', '-')
-                iframe.contentWindow.postMessage({data: 'goTo', path: `marketplace/${collectionName}/${param}/${data.uuid}/${owner}` + `?${src[1]}` }, '*')
+                iframe.contentWindow.postMessage({data: 'goTo', path: `/marketplace/${collectionName}/${param}/${data.uuid}/${owner}` + `?${src[1]}` }, '*')
                 let path = src[0] + `marketplace/${collectionName}/${param}/${data.uuid}/${owner}` + `?${src[1]}`
 
                 iframe.setAttribute('src', path)
