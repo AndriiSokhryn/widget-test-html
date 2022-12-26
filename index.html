@@ -84,8 +84,9 @@
             response.json().then(data => {
                 const collectionName = data.collectionName.replaceAll(' ', '-')
                 let path = src[0] + `marketplace/${collectionName}/item/${data.uuid}/${owner}` + `?${src[1]}`
-                iframe.contentWindow.postMessage('messageItem', '*');
-                // iframe.setAttribute('src', path)
+                // iframe.contentWindow.postMessage('messageItem', '*');
+                iframe.contentWindow.postMessage('messageItem', src[0])
+                iframe.setAttribute('src', path)
             })
         })
 
