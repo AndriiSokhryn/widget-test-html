@@ -53,52 +53,16 @@
             return
         }
 
-        if(param === 'item') {
-            goToItem(collectionAddress, id_at_contract, owner)
-        }
-        if(param === 'lot') {
-            goToLot(collectionAddress, id_at_contract, owner)
-        }
+        goTo(param, collectionAddress, id_at_contract, owner)
     }
     let defaultSrc = document.getElementById('widget').getAttribute("src")
 
-    async function goToItem(contractAddress, id_at_contract, owner){
+    async function goTo(param, contractAddress, id_at_contract, owner){
         let iframe = document.getElementById('widget');
 
-        iframe.contentWindow.postMessage('messageItem', '*')
+        iframe.contentWindow.postMessage('goTo', '*')
 
-        fetch('https://api.1nft.store/widgetUser/item/uuid', {
-            method: 'GET',
-            mode: 'cors',
-            cache: 'no-cache',
-            credentials: 'same-origin',
-            headers: {
-                'Content-Type': 'application/json',
-                'address': contractAddress,
-                'id_at_contract': id_at_contract
-            },
-            redirect: 'follow',
-            referrerPolicy: 'no-referrer'
-        }).then(response => {
-            response.json().then(data => {
-                iframe.setAttribute('src', defaultSrc)
-                let src = iframe.getAttribute("src").split("?");
-
-                const collectionName = data.collectionName.replaceAll(' ', '-')
-                let path = src[0] + `marketplace/${collectionName}/item/${data.uuid}/${owner}` + `?${src[1]}`
-
-                iframe.setAttribute('src', path)
-            })
-        })
-
-
-    }
-    async function goToLot(contractAddress, id_at_contract, owner){
-        let iframe = document.getElementById('widget');
-
-        iframe.contentWindow.postMessage('messageItem', '*')
-
-        fetch('https://api.1nft.store/widgetUser/lot/uuid', {
+        fetch(`https://api.1nft.store/widgetUser/${param}/uuid`, {
             method: 'GET',
             mode: 'cors',
             cache: 'no-cache',
@@ -117,12 +81,44 @@
                 let src = iframe.getAttribute("src").split("?");
 
                 const collectionName = data.collectionName.replaceAll(' ', '-')
-                let path = src[0] + `marketplace/${collectionName}/lot/${data.uuid}/${owner}` + `?${src[1]}`
+                let path = src[0] + `marketplace/${collectionName}/${param}/${data.uuid}/${owner}` + `?${src[1]}`
+
                 iframe.setAttribute('src', path)
             })
         })
 
+
     }
+    // async function goToLot(contractAddress, id_at_contract, owner){
+    //     let iframe = document.getElementById('widget');
+    //
+    //     iframe.contentWindow.postMessage('messageItem', '*')
+    //
+    //     fetch('https://api.1nft.store/widgetUser/lot/uuid', {
+    //         method: 'GET',
+    //         mode: 'cors',
+    //         cache: 'no-cache',
+    //         credentials: 'same-origin',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             'address': contractAddress,
+    //             'id_at_contract': id_at_contract,
+    //             'owner': owner
+    //         },
+    //         redirect: 'follow',
+    //         referrerPolicy: 'no-referrer'
+    //     }).then(response => {
+    //         response.json().then(data => {
+    //             iframe.setAttribute('src', defaultSrc)
+    //             let src = iframe.getAttribute("src").split("?");
+    //
+    //             const collectionName = data.collectionName.replaceAll(' ', '-')
+    //             let path = src[0] + `marketplace/${collectionName}/lot/${data.uuid}/${owner}` + `?${src[1]}`
+    //             iframe.setAttribute('src', path)
+    //         })
+    //     })
+    //
+    // }
 </script>
 </body>
 </html>
