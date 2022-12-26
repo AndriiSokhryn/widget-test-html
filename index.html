@@ -60,8 +60,6 @@
     async function goTo(param, contractAddress, id_at_contract, owner){
         let iframe = document.getElementById('widget');
 
-        iframe.contentWindow.postMessage('goTo', '*')
-
         fetch(`https://api.1nft.store/widgetUser/${param}/uuid`, {
             method: 'GET',
             mode: 'cors',
@@ -81,6 +79,7 @@
                 let src = iframe.getAttribute("src").split("?");
 
                 const collectionName = data.collectionName.replaceAll(' ', '-')
+                iframe.contentWindow.postMessage({data: 'goTo', path: `marketplace/${collectionName}/${param}/${data.uuid}/${owner}` + `?${src[1]}` }, '*')
                 let path = src[0] + `marketplace/${collectionName}/${param}/${data.uuid}/${owner}` + `?${src[1]}`
 
                 iframe.setAttribute('src', path)
