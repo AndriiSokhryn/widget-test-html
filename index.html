@@ -68,6 +68,7 @@
 
         iframe.setAttribute('src', defaultSrc)
         let src = iframe.getAttribute("src").split("?");
+        console.log(iframe.contentWindow)
         iframe.contentWindow.postMessage('message', '*')
         //
         // fetch('https://api.1nft.store/widgetUser/item/uuid', {
