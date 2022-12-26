@@ -65,9 +65,6 @@
     async function goToItem(contractAddress, id_at_contract, owner){
         let iframe = document.getElementById('widget');
 
-
-        // iframe.setAttribute('src', defaultSrc)
-        // let src = iframe.getAttribute("src").split("?");
         iframe.contentWindow.postMessage('messageItem')
 
         fetch('https://api.1nft.store/widgetUser/item/uuid', {
@@ -90,8 +87,6 @@
                 const collectionName = data.collectionName.replaceAll(' ', '-')
                 let path = src[0] + `marketplace/${collectionName}/item/${data.uuid}/${owner}` + `?${src[1]}`
 
-                iframe.contentWindow.postMessage('messageItem', src[0])
-
                 iframe.setAttribute('src', path)
             })
         })
@@ -100,9 +95,8 @@
     }
     async function goToLot(contractAddress, id_at_contract, owner){
         let iframe = document.getElementById('widget');
-        iframe.setAttribute('src', defaultSrc)
-        let src = iframe.getAttribute("src").split("?");
-        console.log(src)
+
+        iframe.contentWindow.postMessage('messageItem')
 
         fetch('https://api.1nft.store/widgetUser/lot/uuid', {
             method: 'GET',
@@ -119,6 +113,9 @@
             referrerPolicy: 'no-referrer'
         }).then(response => {
             response.json().then(data => {
+                iframe.setAttribute('src', defaultSrc)
+                let src = iframe.getAttribute("src").split("?");
+
                 const collectionName = data.collectionName.replaceAll(' ', '-')
                 let path = src[0] + `marketplace/${collectionName}/lot/${data.uuid}/${owner}` + `?${src[1]}`
                 iframe.setAttribute('src', path)
