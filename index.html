@@ -65,7 +65,7 @@
     async function goToItem(contractAddress, id_at_contract, owner){
         let iframe = document.getElementById('widget');
 
-        iframe.contentWindow.postMessage('messageItem')
+        iframe.contentWindow.postMessage('messageItem', '*')
 
         fetch('https://api.1nft.store/widgetUser/item/uuid', {
             method: 'GET',
@@ -96,7 +96,7 @@
     async function goToLot(contractAddress, id_at_contract, owner){
         let iframe = document.getElementById('widget');
 
-        iframe.contentWindow.postMessage('messageItem')
+        iframe.contentWindow.postMessage('messageItem', '*')
 
         fetch('https://api.1nft.store/widgetUser/lot/uuid', {
             method: 'GET',
