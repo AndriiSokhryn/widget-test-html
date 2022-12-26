@@ -68,7 +68,7 @@
         iframe.setAttribute('src', defaultSrc)
         let src = iframe.getAttribute("src").split("?");
 
-        fetch('https://widget.1nft.store/widgetUser/item/uuid', {
+        fetch('https://api.1nft.store/widgetUser/item/uuid', {
             method: 'GET',
             mode: 'cors',
             cache: 'no-cache',
@@ -97,7 +97,7 @@
         let src = iframe.getAttribute("src").split("?");
         console.log(src)
 
-        fetch('https://widget.1nft.store/widgetUser/lot/uuid', {
+        fetch('https://api.1nft.store/widgetUser/lot/uuid', {
             method: 'GET',
             mode: 'cors',
             cache: 'no-cache',
