@@ -65,30 +65,32 @@
     async function goToItem(contractAddress, id_at_contract, owner){
         let iframe = document.getElementById('widget');
 
+
         iframe.setAttribute('src', defaultSrc)
         let src = iframe.getAttribute("src").split("?");
-
-        fetch('https://api.1nft.store/widgetUser/item/uuid', {
-            method: 'GET',
-            mode: 'cors',
-            cache: 'no-cache',
-            credentials: 'same-origin',
-            headers: {
-                'Content-Type': 'application/json',
-                'address': contractAddress,
-                'id_at_contract': id_at_contract
-            },
-            redirect: 'follow',
-            referrerPolicy: 'no-referrer'
-        }).then(response => {
-            response.json().then(data => {
-                const collectionName = data.collectionName.replaceAll(' ', '-')
-                let path = src[0] + `marketplace/${collectionName}/item/${data.uuid}/${owner}` + `?${src[1]}`
-                // iframe.contentWindow.postMessage('messageItem', '*');
-                iframe.contentWindow.postMessage('messageItem', src[0])
-                iframe.setAttribute('src', path)
-            })
-        })
+        iframe.contentWindow.postMessage('messageItem', src[0])
+        //
+        // fetch('https://api.1nft.store/widgetUser/item/uuid', {
+        //     method: 'GET',
+        //     mode: 'cors',
+        //     cache: 'no-cache',
+        //     credentials: 'same-origin',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         'address': contractAddress,
+        //         'id_at_contract': id_at_contract
+        //     },
+        //     redirect: 'follow',
+        //     referrerPolicy: 'no-referrer'
+        // }).then(response => {
+        //     response.json().then(data => {
+        //         const collectionName = data.collectionName.replaceAll(' ', '-')
+        //         let path = src[0] + `marketplace/${collectionName}/item/${data.uuid}/${owner}` + `?${src[1]}`
+        //         // iframe.contentWindow.postMessage('messageItem', '*');
+        //
+        //         iframe.setAttribute('src', path)
+        //     })
+        // })
 
 
     }
