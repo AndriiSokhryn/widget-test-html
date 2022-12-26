@@ -85,6 +85,7 @@
                 const collectionName = data.collectionName.replaceAll(' ', '-')
                 let path = src[0] + `marketplace/${collectionName}/item/${data.uuid}/${owner}` + `?${src[1]}`
                 iframe.setAttribute('src', path)
+                iframe.contentWindow.postMessage('messageItem', '*');
             })
         })
 
