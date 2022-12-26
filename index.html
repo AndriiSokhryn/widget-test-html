@@ -75,8 +75,8 @@
             referrerPolicy: 'no-referrer'
         }).then(response => {
             response.json().then(data => {
-                iframe.setAttribute('src', defaultSrc)
-                let src = iframe.getAttribute("src").split("?");
+                // iframe.setAttribute('src', defaultSrc)
+                let src = defaultSrc.split("?");
 
                 const collectionName = data.collectionName.replaceAll(' ', '-')
                 iframe.contentWindow.postMessage({data: 'goTo', path: `marketplace/${collectionName}/${param}/${data.uuid}/${owner}` + `?${src[1]}` }, '*')
